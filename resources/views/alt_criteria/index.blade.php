@@ -36,6 +36,10 @@
         </div>
         <div class="card-body">
             @if (auth()->user()->level == 'admin')
+                {{-- <a class="btn btn-success right mb-3" href="{{ route('nilaialt') }}">Tampilkan semua Alternatif</a>
+                <a href="{{ route('nilaialt.create') }}" class="btn btn-primary create-button">Tambah Nilai</a> --}}
+
+                <a href="{{ route('nilaialt.create') }}" class="btn btn-primary mb-3 ml-3">Tambah Alternatif</a>
                 <a class="btn btn-success right mb-3" href="{{ route('nilaialt') }}">Tampilkan semua Alternatif</a>
             @endif
             <form class="form-left my-2" method="get" action="{{ route('nilaialt.search') }}">
@@ -54,6 +58,7 @@
                     <thead>
                         <tr>
                             <th>Kode Alternatif</th>
+                            <th>Nama Alternatif</th>
                             @foreach ($kriteria as $krit)
                                 <td>{{ $krit->kode_kriteria_as_string }}</td>
                             @endforeach
@@ -64,20 +69,14 @@
                         @foreach ($alternatif as $item)
                             <tr>
                                 <td>{{ $item->kode_alternatif_as_string }}</td>
+                                <td>{{ $item->nama_alternatif }}</td>
                                 @foreach ($kriteria as $k)
-                                    @php    
-                                        $nilai = $nilai_alt
-                                            ->where('kode_alt', $item->kode_alternatif)
-                                            ->where('kode_krit', $k->kode_kriteria)
-                                            ->first();
-                                    @endphp
-                                    <td>{{ $nilai ? $nilai->value : '' }}</td>
-                                    
+                                    <td>
+                                        {{-- Menggunakan relasi di model untuk mendapatkan nilai --}}
+                                        {{ $item->nilaiAlts->where('kode_krit', $k->kode_kriteria)->first()->value ?? '-' }}
+                                    </td>
                                 @endforeach
                                 <td>
-                                    <a href="{{ route('nilaialt.create') }}"
-                                        class="btn btn-primary create-button"
-                                        onclick="confirmationEdit(event)">Tambah</a>
                                     <a href="{{ route('nilaialt.edit', $item->kode_alternatif) }}"
                                         class="btn btn-warning edit-button edit-button"
                                         onclick="confirmationEdit(event)">Edit</a>
@@ -88,9 +87,6 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="my-2" width="500px">
-                    {{ $nilai_alt->withQueryString()->links('pagination::bootstrap-5') }}
-                </div>
             </div>
         </div>
     </div>

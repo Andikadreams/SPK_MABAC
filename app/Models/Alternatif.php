@@ -20,8 +20,8 @@ class Alternatif extends Model
     {
         return 'A' . $this->attributes['kode_alternatif'];
     }
-    // public function nilai_alt() 
-	// {
-	// return $this->hasMany(NilaiAlt::class,'id_alternatif', 'id');
-	// }
+    public function nilaiAlts()
+    {
+        return $this->hasMany(NilaiAlt::class, 'kode_alt', 'kode_alternatif');
+    }
 }

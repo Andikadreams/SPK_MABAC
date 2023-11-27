@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\NilaiAlt;
 use App\Models\Alternatif;
 use App\Models\Kriteria;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreNilaiAltRequest;
 use App\Http\Requests\UpdateNilaiAltRequest;
 use Illuminate\Support\Facades\Storage;
@@ -19,11 +20,16 @@ class NilaiAltController extends Controller
      */
     public function index()
     {
-        $alternatif = Alternatif::get();
+        $alternatif = Alternatif::with('nilaiAlts')->get();
         $kriteria = Kriteria::get();
-        $nilai_alt = NilaiAlt::paginate(5);
+        $nilai_alt = NilaiAlt::all();
+        // foreach ($kriteria as $kriteria) {
+        // $nilaiAltsKriteria = NilaiAlt::where('kode_krit', $kriteria->kode_kriteria)->get();
+        
+        // }
+        // $maxValue = $nilaiAltsKriteria->max('value');
+        // $minValue = $nilaiAltsKriteria->min('value');
         return view ('alt_criteria.index',compact('nilai_alt','alternatif','kriteria') );
-
     }
 
     /**
@@ -33,9 +39,10 @@ class NilaiAltController extends Controller
      */
     public function create()
     {
+        $nilai_alt = NilaiAlt::get();
         $alternatif = Alternatif::get();
         $kriteria = Kriteria::get();
-		return view('alt_criteria.form', ['alt' => $alternatif], ['kriteria' => $kriteria]);
+		return view('alt_criteria.form',compact('nilai_alt','alternatif','kriteria'));
     }
 
     /**
@@ -44,15 +51,24 @@ class NilaiAltController extends Controller
      * @param  \App\Http\Requests\StoreNilaiAltRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreNilaiAltRequest $request)
+    public function store(Request $request)
     {
-        $data = [
-            'id_alternatif' => $request->id_alternatif,
-            'id_kriteria' => $request->id_kriteria,
-            'value' => $request->value,
-        ];
-        NilaiAlt::create($data);
-            return redirect()->route('nilaialt')->with('success', 'Berhasil Menambah Nilai Kriteria!');
+        $validate = NilaiAlt::get();
+        $kriteria = Kriteria::get();
+        $request->validate([
+            'value*' => 'required',]);
+        if($validate){
+            
+        }
+        foreach ($kriteria as $Kriteria) {
+            $nilaiAlt = new nilaiAlt;
+
+            $nilaiAlt->kode_alt = $request->get('kode_alt');
+            $nilaiAlt->kode_krit = $request->get('kode_krit' . $Kriteria->kode_kriteria);
+            $nilaiAlt->value = $request->get('value' . $Kriteria->kode_kriteria);
+            $nilaiAlt->save();
+        }
+            return redirect()->route('nilaialt')->with('success', 'Berhasil Menambah Nilai Alternatif!');
     }
 
     /**
@@ -61,7 +77,7 @@ class NilaiAltController extends Controller
      * @param  \App\Models\NilaiAlt  $nilaiAlt
      * @return \Illuminate\Http\Response
      */
-    public function show(NilaiAlt $id)
+    public function show(Request $id)
     {
         //
     }
@@ -72,7 +88,7 @@ class NilaiAltController extends Controller
      * @param  \App\Models\NilaiAlt  $nilaiAlt
      * @return \Illuminate\Http\Response
      */
-    public function edit(NilaiAlt $id)
+    public function edit(Request $id)
     {
         //
     }
@@ -84,7 +100,7 @@ class NilaiAltController extends Controller
      * @param  \App\Models\NilaiAlt  $nilaiAlt
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateNilaiAltRequest $request, NilaiAlt $nilaiAlt)
+    public function update(Request $request, $kode_alt)
     {
         //
     }
@@ -95,8 +111,15 @@ class NilaiAltController extends Controller
      * @param  \App\Models\NilaiAlt  $nilaiAlt
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NilaiAlt $id)
+    public function destroy($kode_alt)
     {
-        //
+        try {
+            // Cari dan hapus semua nilai untuk alternatif tertentu
+            NilaiAlt::where('kode_alt', $kode_alt)->delete();
+    
+            return redirect()->route('nilaialt')->with('success', 'Berhasil Menghapus Semua Nilai Alternatif');
+        } catch (\Exception $e) {
+            return redirect()->route('nilaialt')->with('error', 'Gagal menghapus nilai alternatif. Error: ' . $e->getMessage());
+        }
     }
 }

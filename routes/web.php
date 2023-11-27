@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\AlternatifController;
 use App\Http\Controllers\NilaiAltController;
+use App\Http\Controllers\PerhitunganController;
 
 
 /*
@@ -61,9 +62,16 @@ Route::controller(NilaiAltController::class)->prefix('nilaialt')->group(function
     Route::get('', 'index')->name('nilaialt');
     Route::get('tambah', 'create')->name('nilaialt.create');
     Route::post('tambah', 'store')->name('nilaialt.create.store');
-    Route::get('edit/{id}', 'edit')->name('nilaialt.edit');
-    Route::post('edit/{id}', 'update')->name('nilaialt.create.update');
-    Route::get('detail/{id}', 'show')->name('nilaialt.detail');
-    Route::get('hapus/{id}', 'destroy')->name('nilaialt.destroy');
+    Route::get('edit/{kode_alt}', 'edit')->name('nilaialt.edit');
+    Route::post('edit/{kode_alt}', 'update')->name('nilaialt.create.update');
+    Route::get('detail/{kode_alt}', 'show')->name('nilaialt.detail');
+    Route::get('hapus/{kode_alt}', 'destroy')->name('nilaialt.destroy');
     Route::get('/search','search')->name('nilaialt.search');
 });
+
+Route::controller(PerhitunganController::class)->prefix('normalisasi')->group(function(){
+    Route::get('normal','index')->name('normalisasi_nilai');
+    Route::get('hasil','RankingAlternatifs')->name('hasil_ranking');
+});
+
+Route::get('/normalisasi', [App\Http\Controllers\PerhitunganController::class, 'normalisasi'])->name('normalisasi');

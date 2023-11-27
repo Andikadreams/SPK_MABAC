@@ -40,13 +40,13 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('normalisasi_nilai') }}">
                 <i class="far fa-chart-bar"></i>
                 <span>Normalisasi</span></a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('hasil_ranking') }}">
                 <i class="fas fa-sort-amount-up-alt"></i>
                 <span>Hasil</span></a>
         </li>

@@ -24,7 +24,7 @@ class Kriteria extends Model
     }
     public function nilai_alt() 
 	{
-	return $this->hasMany(NilaiAlt::class,'kode_kriteria', 'id');
+	return $this->hasMany(NilaiAlt::class,'kode_krit', 'kode_kriteria');
 	}
 
 }

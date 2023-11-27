@@ -11,25 +11,25 @@ class NilaiAlt extends Model
 
     protected $fillable = 
     [
-        'kode_alternatif',
-        'kode_kriteria',
+        'kode_alt',
+        'kode_krit',
         'value', 
     ];
 
     public function getKodeKriteriaAsStringAttribute()
     {
-        return 'C' . $this->attributes['kode_kriteria'];
+        return 'C' . $this->attributes['kode_krit'];
     }
     public function getKodeAlternatifAsStringAttribute()
     {
-        return 'A' . $this->attributes['kode_alternatif'];
+        return 'A' . $this->attributes['kode_alt'];
     }
     public function alternatif() 
 	{
-	return $this->belongsTo(Alternatif::class,'kode_alternatif');
+	return $this->belongsTo(Alternatif::class,'kode_alt', 'kode_alternatif');
 	}
     public function kriteria() 
 	{
-	return $this->belongsTo(Kriteria::class,'kode_kriteria');
+	return $this->belongsTo(Kriteria::class,'kode_krit', 'kode_kriteria');
 	}
 }
