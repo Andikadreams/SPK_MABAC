@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('nilai_alt', function (Blueprint $table) {
             $table->id();
-            $table->foreignID('kode_alt')->references('kode_alternatif')->on('alternatif');
-            $table->foreignID('kode_krit')->references('kode_kriteria')->on('kriteria');
+            $table->integer('kode_krit'); 
+            $table->integer('kode_alt');
+            $table->foreign('kode_alt')->references('kode_alternatif')->on('alternatif');
+            $table->foreign('kode_krit')->references('kode_kriteria')->on('kriteria');
             $table->float('value');
             $table->timestamps();
         });
