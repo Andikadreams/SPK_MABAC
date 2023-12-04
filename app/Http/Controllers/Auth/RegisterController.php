@@ -94,8 +94,8 @@ class RegisterController extends Controller
 		User::create([
 			'name' => $request->name,
 			'email' => $request->email,
-			'password' => Hash::make($request->password),
-			'level' => 'admin'
+			'level' => 'admin',
+			'password' => Hash::make($request->password)
 		]);
 
 		return redirect()->route('login')->with('Sukses','Sukses melakukan registrasi. Silahkan login');

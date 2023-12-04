@@ -4,8 +4,8 @@
     <div class="container">
         <h2>Nilai Total Alternatif</h2>
 
-        <table class="table">
-            <thead>
+        <table class="table table-striped">
+                <thead class="thead-dark">
                 <tr>
                     <th>Alternatif</th>
                     @foreach($kriterias as $kriteria)
@@ -27,8 +27,8 @@
             </tbody>
         </table>
         <h2>Peringkat Alternatif</h2>
-        <table class="table">
-            <thead>
+       <table class="table table-striped">
+                <thead class="thead-dark">
                 <tr>
                     <th>Ranking</th>
                     <th>Nilai</th>

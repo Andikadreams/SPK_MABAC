@@ -9,8 +9,8 @@
         {{-- Add this section to inspect variables --}}
         {{-- {{ dd($normalisasi, $kriterias, $alternatifs) }} --}}
 
-        <table class="table">
-            <thead>
+        <table class="table table-striped">
+                <thead class="thead-dark">
                 <tr>
                     <th style="text-align: center;">Alternatif</th>
                     @foreach ($kriterias as $kriteria)
@@ -40,8 +40,8 @@
         {{-- Tambahkan ini untuk memeriksa data yang dikirim ke view --}}
         {{-- {{ dd($alternatifs, $kriterias, $nilaiAlts, $v) }} --}}
 
-        <table class="table">
-            <thead>
+        <table class="table table-striped">
+                <thead class="thead-dark">
                 <tr>
                     <th style="text-align: center;">Alternatif</th>
                     @foreach ($kriterias as $kriteria)
@@ -69,8 +69,8 @@
             </tbody>
         </table>
         <h2>Matriks Area Perkiraan Perbatasan (G)</h2>
-        <table class="table table-bordered">
-            <thead>
+        <table class="table table-striped">
+                <thead class="thead-dark">
                 <tr>
                     <th></th>
                     @foreach ($kriterias as $kriteria)
@@ -95,8 +95,8 @@
         </table>
         </table>
         <h2>Matriks Jarak Alternatif Dari Daerah Perkiraan Perbatasan (Q)</h2>
-        <table class="table table-bordered">
-            <thead>
+        <table class="table table-striped">
+                <thead class="thead-dark">
                 <tr>
                     <th style="text-align: center;">Alternatif</th>
                     @foreach ($kriterias as $kriteria)
