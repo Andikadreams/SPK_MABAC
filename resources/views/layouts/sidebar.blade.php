@@ -4,7 +4,7 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
             <div class="sidebar-brand-icon rotate-n-0">
-                {{-- <img src="{{ asset('img/logoRB-removebg-preview.png') }}" alt="Group Logo" width="130px" height="auto"
+                {{-- <img src="{{ asset('img/logoRB-removebg-eview.png') }}" alt="Group Logo" width="130px" height="auto"
                     class="brand-image img-circle elevation-1" style="opacity: .8"> --}}
                 <i class="fas fa-database"></i>
             </div>
