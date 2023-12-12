@@ -36,7 +36,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('nilaialt') }}">
                 <i class="fas fa-plus-circle"></i>
-                <span>Nilai Alternatif</span></a>
+                <span>Nilai Matrix</span></a>
         </li>
 
         <li class="nav-item">
@@ -48,7 +48,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('hasil_ranking') }}">
                 <i class="fas fa-sort-amount-up-alt"></i>
-                <span>Hasil</span></a>
+                <span>Hasil Peringkat</span></a>
         </li>
 
         <!-- Divider -->

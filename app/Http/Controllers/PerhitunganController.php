@@ -89,47 +89,14 @@ public function matrikAreaPerkiraanPerbatasanG(){
     $data = $this->elemenMatriksTertimbang();
     $g = [];
     $count_alt = Alternatif::count();
-    // $result = [];
-    // dd($data['v'][1][2],$alternatifs,$kriterias);
-    // foreach ($kriterias as $kriteria){
-    //     $result[$kriteria->kode_kriteria] = 1;
-    //     foreach ($alternatifs as $alternatif){
-    //         // $value_v = $data['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
-    //         $value_v = $data['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
-    //         $result[$kriteria->kode_kriteria] *=  $value_v;
-    //         // $g[$result] = pow($value, 1/$count_alt);
-    //     }
-    // }
-    // dd($value_v);
-
-    // dd($result);
-
-    // foreach ( $result as $results => $value ) {
-    //     $g[$results] = pow($value, 1/$count_alt);
-    // }
-
-    // dd($g);
-
-    // foreach ($kriterias as $kriteria) {
-    //     $g[$kriteria->kode_kriteria] = 1; // Inisialisasi array untuk setiap alternatif
-        
-    //     foreach ($alternatifs as $alternatif) {
-    //         // Periksa apakah kunci ada dalam array sebelum mengaksesnya
-    //         if (isset($data['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria])) {
-    //             // Hitung matriks area perkiraan perbatasan (G)
-    //             $g[$kriteria->kode_kriteria] = pow($result[$kriteria->kode_kriteria], 1/$count_alt);
-    //         } else {
-    //             // Tangani kasus ketika kunci tidak ditemukan
-    //             // Anda dapat menetapkan nilai default atau menanganinya sesuai logika aplikasi Anda
-    //             // $g[$alternatif->kode_alternatif][$kriteria->kode_kriteria] = 0;
-    //         }
-    //     }
-    // }
     foreach ($kriterias as $kriteria) {
         $result = 1; // Initialize $result for each kriteria
         foreach ($alternatifs as $alternatif) {
-            $value_v = $data['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
-            $result *= $value_v;
+            if(isset($data['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria])){
+                $value_v = $data['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
+                $result *= $value_v;
+            }else{
+            }
             // dd($value_v);
             // dd($data['v']);
         }
@@ -147,14 +114,17 @@ public function matrikAreaPerkiraanPerbatasanG(){
         
         foreach ($alternatifs as $alternatif) {
             foreach ($kriterias as $kriteria) {
-                $v = $data_V['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
-                $g = $data_G['g'][$kriteria->kode_kriteria];
+                if(isset($data_V['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria])){
+                    $v = $data_V['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
+                    $g = $data_G['g'][$kriteria->kode_kriteria];
     
-                $q[$alternatif->kode_alternatif][$kriteria->kode_kriteria] = $v - $g;
+                    $q[$alternatif->kode_alternatif][$kriteria->kode_kriteria] = $v - $g;
+                }
+                else{
+
+                }
             }
         }
-        
-        // dd()
         return compact('alternatifs', 'kriterias', 'q');
     }
     public function countHasilQ($q)
@@ -165,14 +135,13 @@ public function matrikAreaPerkiraanPerbatasanG(){
             $totalQ = 0;
     
             foreach ($kriteriaValues as $nilaiQ) {
-                $totalQ += round($nilaiQ, 3);
+                $totalQ += ($nilaiQ);
             }
             $hasilQ[$alternatif] = $totalQ;
         }
         return $hasilQ;
     }
     
-
     public function RankingAlternatifs(){
         $kriterias = Kriteria::all();
         $alternatifs = Alternatif::all();

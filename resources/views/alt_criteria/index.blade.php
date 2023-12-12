@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Nilai Alternatif')
+@section('title', 'Nilai Matrix')
 
 @section('contents')
     @include('sweetalert::alert')

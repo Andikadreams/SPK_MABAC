@@ -1,6 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\KriteriaController;
+use App\Http\Controllers\AlternatifController;
+use App\Models\Kriteria;
+use App\Models\Alternatif;
+
 
 use Illuminate\Http\Request;
 
@@ -26,6 +31,8 @@ class HomeController extends Controller
         return view('layouts.app');
     }
     public function homedashboard(){
-        return view('layouts.app');
+        $count_kriteria = Kriteria::get()->count();
+        $count_alternatif = Alternatif::get()->count();
+        return view('dashboard', compact('count_kriteria', 'count_alternatif'));
     }
 }

@@ -32,4 +32,8 @@ class NilaiAlt extends Model
 	{
 	return $this->belongsTo(Kriteria::class,'kode_krit', 'kode_kriteria');
 	}
+    public function nilai()
+    {
+        return $this->hasMany(NilaiAlt::class, 'kode_alt', 'kode_alt');
+    }
 }

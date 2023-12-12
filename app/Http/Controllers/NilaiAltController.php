@@ -23,12 +23,6 @@ class NilaiAltController extends Controller
         $alternatif = Alternatif::with('nilaiAlts')->get();
         $kriteria = Kriteria::get();
         $nilai_alt = NilaiAlt::all();
-        // foreach ($kriteria as $kriteria) {
-        // $nilaiAltsKriteria = NilaiAlt::where('kode_krit', $kriteria->kode_kriteria)->get();
-        
-        // }
-        // $maxValue = $nilaiAltsKriteria->max('value');
-        // $minValue = $nilaiAltsKriteria->min('value');
         return view ('alt_criteria.index',compact('nilai_alt','alternatif','kriteria') );
     }
 
@@ -88,9 +82,22 @@ class NilaiAltController extends Controller
      * @param  \App\Models\NilaiAlt  $nilaiAlt
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $id)
+    public function edit($kode_alt)
     {
-        //
+    // Find the specific NilaiAlt record by its id
+    $nilaiAlt = NilaiAlt::where('kode_alt', $kode_alt)->first();
+    $nilai = NilaiAlt::all();
+    // Check if the record exists
+    if (!$nilaiAlt) {
+        return redirect()->route('nilaialt')->with('error', 'Nilai Alternatif tidak ditemukan');
+    }
+
+    // Retrieve necessary data for the form
+    $alternatif = Alternatif::get();
+    $kriteria = Kriteria::get();
+
+    // Pass the data to the view for editing
+    return view('alt_criteria.edit', compact('nilaiAlt', 'alternatif', 'kriteria','nilai'));
     }
 
     /**
@@ -101,9 +108,40 @@ class NilaiAltController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $kode_alt)
-    {
-        //
+{
+    // Find the specific NilaiAlt record by its id
+
+    // Check if the record exists
+    // if (!$nilaiAlt) {
+    //     return redirect()->route('nilaialt')->with('error', 'Nilai Alternatif tidak ditemukan');
+    // }
+
+    // Update the values based on the form input
+    
+    
+    // Loop through all criteria and update the values
+    $kriteria = Kriteria::all();
+    foreach ($kriteria as $krit) {
+        // Find the specific NilaiAlt record by its id and criteria code
+        $nilaiAlt = NilaiAlt::where('kode_alt', $kode_alt)->where('kode_krit', $krit->kode_kriteria)->first();
+
+        // Check if the record exists
+        if (!$nilaiAlt) {
+            return redirect()->route('nilaialt')->with('error', 'Nilai Alternatif tidak ditemukan');
+        }
+
+        // Update the values based on the form input
+        $nilaiAlt->update(['value' => $request->get('value' . $krit->kode_kriteria)]);
     }
+    // NilaiAlt::find($kode_alt)->update($data);
+
+    // Save the updated record
+    // $nilaiAlt->save();
+
+    // Redirect back to the index page with a success message
+    return redirect()->route('nilaialt')->with('success', 'Berhasil Mengupdate Nilai Alternatif');
+}
+
 
     /**
      * Remove the specified resource from storage.
