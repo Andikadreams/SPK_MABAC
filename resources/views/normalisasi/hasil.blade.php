@@ -5,30 +5,39 @@
         <h2>Nilai Total Alternatif</h2>
 
         <table class="table table-striped">
-                <thead class="thead-dark">
+            <thead class="thead-dark">
                 <tr>
                     <th>Alternatif</th>
-                    @foreach($kriterias as $kriteria)
+                    @foreach ($kriterias as $kriteria)
                         <th>{{ $kriteria->kode_kriteria_as_string }}</th>
                     @endforeach
                     <th>Total</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($alternatifs as $alternatif)
+                @foreach ($alternatifs as $alternatif)
                     <tr>
                         <td>{{ $alternatif->nama_alternatif }}</td>
-                        @foreach($kriterias as $kriteria)
-                            <td>{{ number_format($data_Q['q'][$alternatif->kode_alternatif][$kriteria->kode_kriteria], 3, ',', '.') }}</td>
+                        @foreach ($kriterias as $kriteria)
+                            @if (isset($data_Q['q'][$alternatif->kode_alternatif][$kriteria->kode_kriteria]))
+                                <td>{{ number_format($data_Q['q'][$alternatif->kode_alternatif][$kriteria->kode_kriteria], 3, ',', '.') }}
+                                </td>
+                            @else
+                                <td style="text-align: center;">-</td>
+                            @endif
                         @endforeach
-                        <td>{{ number_format($rank[$alternatif->kode_alternatif], 3, ',', '.') }}</td>
+                        @if (isset($rank[$alternatif->kode_alternatif]))
+                            <td>{{ number_format($rank[$alternatif->kode_alternatif], 3, ',', '.') }}</td>
+                        @else
+                            <td style="text-align: center;">-</td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>
         </table>
         <h2>Peringkat Alternatif</h2>
-       <table class="table table-striped">
-                <thead class="thead-dark">
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
                     <th>Ranking</th>
                     <th>Nilai</th>
@@ -40,10 +49,13 @@
                     $rankedAlternatives = collect($sortedRank)->map(function ($value) {
                         return number_format($value, 3, ',', '.');
                     });
-        
-                    $rankedAlternatives = collect($rankedAlternatives)->unique()->values()->all();
+
+                    $rankedAlternatives = collect($rankedAlternatives)
+                        ->unique()
+                        ->values()
+                        ->all();
                 @endphp
-                @foreach($sortedRank as $alternatifKode => $ranking)
+                @foreach ($sortedRank as $alternatifKode => $ranking)
                     <tr>
                         <td>{{ collect($rankedAlternatives)->search(number_format($ranking, 3, ',', '.')) + 1 }}</td>
                         <td>{{ number_format($ranking, 3, ',', '.') }}</td>
@@ -52,6 +64,6 @@
                 @endforeach
             </tbody>
         </table>
-        
+
     </div>
 @endsection

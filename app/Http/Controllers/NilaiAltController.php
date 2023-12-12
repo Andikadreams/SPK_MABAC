@@ -109,36 +109,16 @@ class NilaiAltController extends Controller
      */
     public function update(Request $request, $kode_alt)
 {
-    // Find the specific NilaiAlt record by its id
-
-    // Check if the record exists
-    // if (!$nilaiAlt) {
-    //     return redirect()->route('nilaialt')->with('error', 'Nilai Alternatif tidak ditemukan');
-    // }
-
-    // Update the values based on the form input
-    
-    
-    // Loop through all criteria and update the values
     $kriteria = Kriteria::all();
     foreach ($kriteria as $krit) {
-        // Find the specific NilaiAlt record by its id and criteria code
         $nilaiAlt = NilaiAlt::where('kode_alt', $kode_alt)->where('kode_krit', $krit->kode_kriteria)->first();
 
-        // Check if the record exists
         if (!$nilaiAlt) {
             return redirect()->route('nilaialt')->with('error', 'Nilai Alternatif tidak ditemukan');
         }
 
-        // Update the values based on the form input
         $nilaiAlt->update(['value' => $request->get('value' . $krit->kode_kriteria)]);
     }
-    // NilaiAlt::find($kode_alt)->update($data);
-
-    // Save the updated record
-    // $nilaiAlt->save();
-
-    // Redirect back to the index page with a success message
     return redirect()->route('nilaialt')->with('success', 'Berhasil Mengupdate Nilai Alternatif');
 }
 

@@ -58,7 +58,7 @@
                             @if (isset($v[$alternatif->kode_alternatif]) && isset($v[$alternatif->kode_alternatif][$kriteria->kode_kriteria]))
                                 {{-- Pastikan bahwa $v[$alternatif->kode_alternatif][$kriteria->kode_kriteria] berisi nilai --}}
                                 <td style="text-align: center;">
-                                    {{ number_format($v[$alternatif->kode_alternatif][$kriteria->kode_kriteria], 5, ',', '.') }}
+                                    {{ number_format($v[$alternatif->kode_alternatif][$kriteria->kode_kriteria], 3, ',', '.') }}
                                 </td>
                             @else
                                 <td style="text-align: center;">-</td>
@@ -85,7 +85,7 @@
                         {{-- Pengecekan keberadaan kunci --}}
                         @if (isset($g[$kriteria->kode_kriteria]))
                             {{-- Pastikan bahwa $g[$kriteria->kode_kriteria] berisi nilai --}}
-                            <td>{{ number_format($g[$kriteria->kode_kriteria], 5, ',', '.') }}</td>
+                            <td>{{ number_format($g[$kriteria->kode_kriteria], 3, ',', '.') }}</td>
                         @else
                             <td>-</td>
                         @endif
