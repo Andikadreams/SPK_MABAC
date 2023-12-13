@@ -39,7 +39,7 @@
                 {{-- <a class="btn btn-success right mb-3" href="{{ route('nilaialt') }}">Tampilkan semua Alternatif</a>
                 <a href="{{ route('nilaialt.create') }}" class="btn btn-primary create-button">Tambah Nilai</a> --}}
 
-                <a href="{{ route('nilaialt.create') }}" class="btn btn-primary mb-3 ml-3">Tambah Alternatif</a>
+                <a href="{{ route('nilaialt.create') }}" class="btn btn-primary mb-3 ml-3">Tambah Nilai Alternatif</a>
                 <a class="btn btn-success right mb-3" href="{{ route('nilaialt') }}">Tampilkan semua Alternatif</a>
             @endif
             <form class="form-left my-2" method="get" action="{{ route('nilaialt.search') }}">
