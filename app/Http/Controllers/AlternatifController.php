@@ -101,15 +101,15 @@ class AlternatifController extends Controller
 			'nama_alternatif' => $request->nama_alternatif,
 		];
         if ($alternatif->kode_alternatif == $request->kode_alternatif && $alternatif->nama_alternatif == $request->nama_alternatif) {
-            return redirect()->route('alternatif')->with('info', 'Tidak Ada Perubahan Pada Data Kriteria.');
+            return redirect()->route('alternatif')->with('info', 'Tidak Ada Perubahan Pada Data Alternatif.');
         } 
         else if ($validateKode) {
-            return redirect()->route('alternatif')->with('error', 'Kode Kriteria Tidak Boleh Sama!');
+            return redirect()->route('alternatif')->with('error', 'Kode Alternatif Tidak Boleh Sama!');
         } else if ($validateNama) {
-            return redirect()->route('alternatif')->with('error', 'Nama Kriteria Tidak Boleh Sama!');
+            return redirect()->route('alternatif')->with('error', 'Nama Alternatif Tidak Boleh Sama!');
         } else {
                 Alternatif::find($kode_alternatif)->update($data);
-                return redirect()->route('alternatif')->with('success', 'Berhasil Mengedit Kriteria!');
+                return redirect()->route('alternatif')->with('success', 'Berhasil Mengedit Alternatif!');
             }
     }
 
@@ -121,8 +121,8 @@ class AlternatifController extends Controller
      */
     public function destroy($kode_alternatif)
     {
-        Kriteria::find($kode_alternatif)->delete();
-		return redirect()->route('kriteria')->with('success','Berhasil Menghapus Data Kriteria');
+        Alternatif::find($kode_alternatif)->delete();
+		return redirect()->route('alternatif')->with('success','Berhasil Menghapus Data Alternatif');
     }
 
     public function search(Request $request){
