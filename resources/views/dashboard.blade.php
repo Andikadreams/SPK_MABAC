@@ -100,5 +100,6 @@
     <!-- Add iframe for PDF -->
     <div class="row justify-content-center">
         <iframe src="{{ asset('document/11-Article Text-189-2-10-20201129.pdf') }}" width="100%" height="600px"></iframe>
+        <iframe src="https://docs.google.com/spreadsheets/d/1Lk3W3ViBMwC99Oj4nh7VQfXjPnnYgrE9/edit?usp=sharing&ouid=107402612490797375028&rtpof=true&sd=true" width="100%" height="600px"></iframe>
     </div>
 @endsection

@@ -117,7 +117,6 @@ public function matrikAreaPerkiraanPerbatasanG(){
                 if(isset($data_V['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria])){
                     $v = $data_V['v'][$alternatif->kode_alternatif][$kriteria->kode_kriteria];
                     $g = $data_G['g'][$kriteria->kode_kriteria];
-    
                     $q[$alternatif->kode_alternatif][$kriteria->kode_kriteria] = $v - $g;
                 }
                 else{
